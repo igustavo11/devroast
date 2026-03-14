@@ -1,11 +1,26 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { CardRoot, CardBadge, CardTitle, CardDescription } from '@/components/ui/card';
-import { CodeBlockRoot, CodeBlockHeader, CodeBlockBody } from '@/components/ui/code-block';
+import {
+  CardRoot,
+  CardBadge,
+  CardTitle,
+  CardDescription,
+} from '@/components/ui/card';
+import {
+  CodeBlockRoot,
+  CodeBlockHeader,
+  CodeBlockBody,
+} from '@/components/ui/code-block';
 import { DiffLine } from '@/components/ui/diff-line';
 import { NavbarRoot, NavbarLogo, NavbarNav } from '@/components/ui/navbar';
 import { ScoreRing } from '@/components/ui/score-ring';
-import { TableRowRoot, TableRowRank, TableRowScore, TableRowCode, TableRowLang } from '@/components/ui/table-row';
+import {
+  TableRowRoot,
+  TableRowRank,
+  TableRowScore,
+  TableRowCode,
+  TableRowLang,
+} from '@/components/ui/table-row';
 import { Toggle } from '@/components/ui/toggle';
 
 function Section({
@@ -23,7 +38,11 @@ function Section({
         <span className="text-accent-green">{'// '}</span>
         <span className="text-text-primary">{title}</span>
       </h2>
-      <div className={stack ? 'flex flex-col gap-0' : 'flex flex-wrap items-end gap-3'}>
+      <div
+        className={
+          stack ? 'flex flex-col gap-0' : 'flex flex-wrap items-end gap-3'
+        }
+      >
         {children}
       </div>
     </section>
@@ -44,7 +63,9 @@ export default async function ComponentsPage() {
       <NavbarRoot>
         <NavbarLogo>devroast</NavbarLogo>
         <NavbarNav>
-          <span className="font-mono text-[13px] text-text-secondary">leaderboard</span>
+          <span className="font-mono text-[13px] text-text-secondary">
+            leaderboard
+          </span>
         </NavbarNav>
       </NavbarRoot>
 
@@ -55,36 +76,66 @@ export default async function ComponentsPage() {
 
         {/* ── Button ── */}
         <Section title="buttons">
-          <Button variant="primary" size="md">$ roast_my_code</Button>
-          <Button variant="secondary" size="md">$ share_roast</Button>
-          <Button variant="outline" size="md">$ view_all &gt;&gt;</Button>
-          <Button variant="ghost" size="md">$ cancel</Button>
-          <Button variant="destructive" size="md">$ delete</Button>
+          <Button variant="primary" size="md">
+            $ roast_my_code
+          </Button>
+          <Button variant="secondary" size="md">
+            $ share_roast
+          </Button>
+          <Button variant="outline" size="md">
+            $ view_all &gt;&gt;
+          </Button>
+          <Button variant="ghost" size="md">
+            $ cancel
+          </Button>
+          <Button variant="destructive" size="md">
+            $ delete
+          </Button>
         </Section>
 
         <Section title="buttons / sizes">
-          <Button variant="primary" size="sm">$ small</Button>
-          <Button variant="primary" size="md">$ medium</Button>
-          <Button variant="primary" size="lg">$ large</Button>
+          <Button variant="primary" size="sm">
+            $ small
+          </Button>
+          <Button variant="primary" size="md">
+            $ medium
+          </Button>
+          <Button variant="primary" size="lg">
+            $ large
+          </Button>
         </Section>
 
         <Section title="buttons / disabled">
-          <Button variant="primary" size="md" disabled>$ primary</Button>
-          <Button variant="secondary" size="md" disabled>$ secondary</Button>
-          <Button variant="outline" size="md" disabled>$ outline</Button>
-          <Button variant="ghost" size="md" disabled>$ ghost</Button>
-          <Button variant="destructive" size="md" disabled>$ destructive</Button>
+          <Button variant="primary" size="md" disabled>
+            $ primary
+          </Button>
+          <Button variant="secondary" size="md" disabled>
+            $ secondary
+          </Button>
+          <Button variant="outline" size="md" disabled>
+            $ outline
+          </Button>
+          <Button variant="ghost" size="md" disabled>
+            $ ghost
+          </Button>
+          <Button variant="destructive" size="md" disabled>
+            $ destructive
+          </Button>
         </Section>
 
         {/* ── Toggle ── */}
         <Section title="toggle">
           <div className="flex items-center gap-3">
             <Toggle defaultChecked />
-            <span className="font-mono text-[12px] text-accent-green">roast mode</span>
+            <span className="font-mono text-[12px] text-accent-green">
+              roast mode
+            </span>
           </div>
           <div className="flex items-center gap-3">
             <Toggle />
-            <span className="font-mono text-[12px] text-text-secondary">roast mode</span>
+            <span className="font-mono text-[12px] text-text-secondary">
+              roast mode
+            </span>
           </div>
           <Toggle disabled />
           <Toggle defaultChecked disabled />
@@ -104,25 +155,26 @@ export default async function ComponentsPage() {
             <CardBadge variant="critical" />
             <CardTitle>using var instead of const/let</CardTitle>
             <CardDescription>
-              the var keyword is function-scoped rather than block-scoped, which can lead to
-              unexpected behavior and bugs. modern javascript uses const for immutable bindings
-              and let for mutable ones.
+              the var keyword is function-scoped rather than block-scoped, which
+              can lead to unexpected behavior and bugs. modern javascript uses
+              const for immutable bindings and let for mutable ones.
             </CardDescription>
           </CardRoot>
           <CardRoot variant="warning" style={{ width: 480 }}>
             <CardBadge variant="warning" />
             <CardTitle>missing error handling in async function</CardTitle>
             <CardDescription>
-              async operations that can fail should always be wrapped in try/catch blocks
-              or handle promise rejections properly to avoid unhandled exceptions.
+              async operations that can fail should always be wrapped in
+              try/catch blocks or handle promise rejections properly to avoid
+              unhandled exceptions.
             </CardDescription>
           </CardRoot>
           <CardRoot variant="good" style={{ width: 480 }}>
             <CardBadge variant="good" />
             <CardTitle>good use of destructuring</CardTitle>
             <CardDescription>
-              clean destructuring pattern makes the code more readable and concise.
-              this is idiomatic modern javascript.
+              clean destructuring pattern makes the code more readable and
+              concise. this is idiomatic modern javascript.
             </CardDescription>
           </CardRoot>
         </Section>
@@ -148,7 +200,10 @@ export default async function ComponentsPage() {
           <div style={{ width: 560 }}>
             <DiffLine variant="removed" code="var total = 0;" />
             <DiffLine variant="added" code="const total = 0;" />
-            <DiffLine variant="context" code="for (let i = 0; i < items.length; i++) {" />
+            <DiffLine
+              variant="context"
+              code="for (let i = 0; i < items.length; i++) {"
+            />
           </div>
         </Section>
 
@@ -157,19 +212,26 @@ export default async function ComponentsPage() {
           <TableRowRoot>
             <TableRowRank>1</TableRowRank>
             <TableRowScore value={2.1} />
-            <TableRowCode>function calculateTotal(items) {'{'} var total = 0; ...</TableRowCode>
+            <TableRowCode>
+              function calculateTotal(items) {'{'} var total = 0; ...
+            </TableRowCode>
             <TableRowLang>javascript</TableRowLang>
           </TableRowRoot>
           <TableRowRoot>
             <TableRowRank>2</TableRowRank>
             <TableRowScore value={5.4} />
-            <TableRowCode>const fetchUser = async (id) =&gt; {'{'} return await api.get(id) {'}'}</TableRowCode>
+            <TableRowCode>
+              const fetchUser = async (id) =&gt; {'{'} return await api.get(id){' '}
+              {'}'}
+            </TableRowCode>
             <TableRowLang>typescript</TableRowLang>
           </TableRowRoot>
           <TableRowRoot>
             <TableRowRank>3</TableRowRank>
             <TableRowScore value={8.7} />
-            <TableRowCode>export const sum = (a: number, b: number) =&gt; a + b</TableRowCode>
+            <TableRowCode>
+              export const sum = (a: number, b: number) =&gt; a + b
+            </TableRowCode>
             <TableRowLang>typescript</TableRowLang>
           </TableRowRoot>
         </Section>

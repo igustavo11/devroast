@@ -2,7 +2,11 @@ import type { ComponentProps } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { codeToHtml } from 'shiki';
 
-export function CodeBlockRoot({ className, children, ...props }: ComponentProps<'div'>) {
+export function CodeBlockRoot({
+  className,
+  children,
+  ...props
+}: ComponentProps<'div'>) {
   return (
     <div
       className={twMerge(
@@ -20,7 +24,11 @@ type CodeBlockHeaderProps = ComponentProps<'div'> & {
   filename?: string;
 };
 
-export function CodeBlockHeader({ filename, className, ...props }: CodeBlockHeaderProps) {
+export function CodeBlockHeader({
+  filename,
+  className,
+  ...props
+}: CodeBlockHeaderProps) {
   return (
     <div
       className={twMerge(
@@ -47,7 +55,11 @@ type CodeBlockBodyProps = {
   className?: string;
 };
 
-export async function CodeBlockBody({ code, lang = 'typescript', className }: CodeBlockBodyProps) {
+export async function CodeBlockBody({
+  code,
+  lang = 'typescript',
+  className,
+}: CodeBlockBodyProps) {
   const html = await codeToHtml(code, {
     lang,
     theme: 'vesper',

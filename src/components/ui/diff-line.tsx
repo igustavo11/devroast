@@ -54,10 +54,17 @@ type DiffLineProps = ComponentProps<'div'> &
     code: string;
   };
 
-export function DiffLine({ variant, code, className, ...props }: DiffLineProps) {
+export function DiffLine({
+  variant,
+  code,
+  className,
+  ...props
+}: DiffLineProps) {
   return (
     <div className={diffLine({ variant, className })} {...props}>
-      <span className={prefix({ variant })}>{PREFIXES[variant ?? 'context']}</span>
+      <span className={prefix({ variant })}>
+        {PREFIXES[variant ?? 'context']}
+      </span>
       <span className={content({ variant })}>{code}</span>
     </div>
   );

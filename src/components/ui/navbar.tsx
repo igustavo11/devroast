@@ -1,7 +1,11 @@
 import type { ComponentProps } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-export function NavbarRoot({ className, children, ...props }: ComponentProps<'nav'>) {
+export function NavbarRoot({
+  className,
+  children,
+  ...props
+}: ComponentProps<'nav'>) {
   return (
     <nav
       className={twMerge(
@@ -17,16 +21,28 @@ export function NavbarRoot({ className, children, ...props }: ComponentProps<'na
   );
 }
 
-export function NavbarLogo({ className, children, ...props }: ComponentProps<'div'>) {
+export function NavbarLogo({
+  className,
+  children,
+  ...props
+}: ComponentProps<'div'>) {
   return (
     <div className={twMerge('flex items-center gap-2', className)} {...props}>
-      <span className="text-[20px] font-bold text-accent-green leading-none">&gt;</span>
-      <span className="text-[18px] font-medium text-text-primary leading-none">{children}</span>
+      <span className="text-[20px] font-bold text-accent-green leading-none">
+        &gt;
+      </span>
+      <span className="text-[18px] font-medium text-text-primary leading-none">
+        {children}
+      </span>
     </div>
   );
 }
 
-export function NavbarNav({ className, children, ...props }: ComponentProps<'div'>) {
+export function NavbarNav({
+  className,
+  children,
+  ...props
+}: ComponentProps<'div'>) {
   return (
     <>
       <div className="flex-1" />

@@ -2,7 +2,11 @@ import type { ComponentProps } from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { twMerge } from 'tailwind-merge';
 
-export function TableRowRoot({ className, children, ...props }: ComponentProps<'div'>) {
+export function TableRowRoot({
+  className,
+  children,
+  ...props
+}: ComponentProps<'div'>) {
   return (
     <div
       className={twMerge(
@@ -16,7 +20,11 @@ export function TableRowRoot({ className, children, ...props }: ComponentProps<'
   );
 }
 
-export function TableRowRank({ className, children, ...props }: ComponentProps<'div'>) {
+export function TableRowRank({
+  className,
+  children,
+  ...props
+}: ComponentProps<'div'>) {
   return (
     <div className={twMerge('w-10 shrink-0', className)} {...props}>
       <span className="text-[13px] text-text-tertiary">{children}</span>
@@ -46,25 +54,44 @@ function scoreLevel(score: number): VariantProps<typeof scoreText>['level'] {
 
 type TableRowScoreProps = ComponentProps<'div'> & { value: number };
 
-export function TableRowScore({ value, className, ...props }: TableRowScoreProps) {
+export function TableRowScore({
+  value,
+  className,
+  ...props
+}: TableRowScoreProps) {
   return (
     <div className={twMerge('w-[60px] shrink-0', className)} {...props}>
-      <span className={scoreText({ level: scoreLevel(value) })}>{value.toFixed(1)}</span>
+      <span className={scoreText({ level: scoreLevel(value) })}>
+        {value.toFixed(1)}
+      </span>
     </div>
   );
 }
 
-export function TableRowCode({ className, children, ...props }: ComponentProps<'div'>) {
+export function TableRowCode({
+  className,
+  children,
+  ...props
+}: ComponentProps<'div'>) {
   return (
     <div className={twMerge('flex-1 overflow-hidden', className)} {...props}>
-      <span className="block truncate text-[12px] text-text-secondary">{children}</span>
+      <span className="block truncate text-[12px] text-text-secondary">
+        {children}
+      </span>
     </div>
   );
 }
 
-export function TableRowLang({ className, children, ...props }: ComponentProps<'div'>) {
+export function TableRowLang({
+  className,
+  children,
+  ...props
+}: ComponentProps<'div'>) {
   return (
-    <div className={twMerge('w-[100px] shrink-0 text-right', className)} {...props}>
+    <div
+      className={twMerge('w-[100px] shrink-0 text-right', className)}
+      {...props}
+    >
       <span className="text-[12px] text-text-tertiary">{children}</span>
     </div>
   );

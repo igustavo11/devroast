@@ -6,28 +6,28 @@
   --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 
   /* ── Backgrounds ── */
-  --color-bg-page: #0A0A0A;
-  --color-bg-surface: #0F0F0F;
-  --color-bg-elevated: #1A1A1A;
+  --color-bg-page: #0a0a0a;
+  --color-bg-surface: #0f0f0f;
+  --color-bg-elevated: #1a1a1a;
   --color-bg-input: #111111;
 
   /* ── Borders ── */
-  --color-border-primary: #2A2A2A;
-  --color-border-focus: #10B981;
+  --color-border-primary: #2a2a2a;
+  --color-border-focus: #10b981;
 
   /* ── Text ── */
-  --color-text-primary: #FAFAFA;
-  --color-text-secondary: #6B7280;
-  --color-text-tertiary: #4B5563;
+  --color-text-primary: #fafafa;
+  --color-text-secondary: #6b7280;
+  --color-text-tertiary: #4b5563;
   --color-text-muted: #525252;
 
   /* ── Accent ── */
-  --color-accent-green: #10B981;
-  --color-accent-red: #EF4444;
-  --color-accent-amber: #F59E0B;
-  --color-accent-cyan: #06B6D4;
+  --color-accent-green: #10b981;
+  --color-accent-red: #ef4444;
+  --color-accent-amber: #f59e0b;
+  --color-accent-cyan: #06b6d4;
 
   /* ── Primitives ── */
-  --color-white: #FFFFFF;
+  --color-white: #ffffff;
   --color-black: #000000;
 }

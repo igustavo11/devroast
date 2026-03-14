@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Toggle } from "@/components/ui/toggle";
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Toggle } from '@/components/ui/toggle';
 import {
   TableRowRoot,
   TableRowRank,
   TableRowScore,
   TableRowCode,
   TableRowLang,
-} from "@/components/ui/table-row";
+} from '@/components/ui/table-row';
 
 const PLACEHOLDER_CODE = `function calculateTotal(items) {
   var total = 0;
@@ -28,7 +28,7 @@ const PLACEHOLDER_CODE = `function calculateTotal(items) {
   return total;
 }`;
 
-const LINE_COUNT = PLACEHOLDER_CODE.split("\n").length;
+const LINE_COUNT = PLACEHOLDER_CODE.split('\n').length;
 
 const LEADERBOARD_ROWS = [
   {
@@ -36,27 +36,27 @@ const LEADERBOARD_ROWS = [
     score: 1.2,
     codePreview:
       'eval(prompt("enter code"))  document.write(response)  // trust the user lol',
-    lang: "javascript",
+    lang: 'javascript',
   },
   {
     rank: 2,
     score: 1.8,
     codePreview:
-      "if (x == true) { return true; }  else if (x == false) { return false; }  else { return !false; }",
-    lang: "typescript",
+      'if (x == true) { return true; }  else if (x == false) { return false; }  else { return !false; }',
+    lang: 'typescript',
   },
   {
     rank: 3,
     score: 2.1,
-    codePreview: "SELECT * FROM users WHERE 1=1  -- TODO: add authentication",
-    lang: "sql",
+    codePreview: 'SELECT * FROM users WHERE 1=1  -- TODO: add authentication',
+    lang: 'sql',
   },
 ];
 
 export default function Home() {
   const [code, setCode] = useState(PLACEHOLDER_CODE);
   const [roastMode, setRoastMode] = useState(true);
-  const lineCount = code.split("\n").length;
+  const lineCount = code.split('\n').length;
 
   return (
     <main className="mx-auto max-w-[960px] px-10 pt-20 pb-15 flex flex-col items-center gap-8">
@@ -125,7 +125,7 @@ export default function Home() {
             </span>
           </div>
           <span className="font-mono text-[12px] text-text-tertiary">
-            {"// maximum sarcasm enabled"}
+            {'// maximum sarcasm enabled'}
           </span>
         </div>
 
@@ -153,7 +153,7 @@ export default function Home() {
           <div className="flex items-center justify-between w-full">
             <div className="flex items-center gap-2">
               <span className="font-mono text-[14px] font-bold text-accent-green">
-                {"// "}
+                {'// '}
               </span>
               <span className="font-mono text-[14px] font-bold text-text-primary">
                 shame_leaderboard
@@ -167,7 +167,7 @@ export default function Home() {
             </button>
           </div>
           <p className="font-mono text-[13px] text-text-tertiary">
-            {"// the worst code on the internet, ranked by shame"}
+            {'// the worst code on the internet, ranked by shame'}
           </p>
         </div>
 
@@ -202,7 +202,7 @@ export default function Home() {
             <TableRowRoot
               key={row.rank}
               className={
-                i === LEADERBOARD_ROWS.length - 1 ? "border-b-0" : undefined
+                i === LEADERBOARD_ROWS.length - 1 ? 'border-b-0' : undefined
               }
             >
               <TableRowRank>{row.rank}</TableRowRank>
