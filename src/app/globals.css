@@ -31,3 +31,41 @@
   --color-white: #ffffff;
   --color-black: #000000;
 }
+
+/* ── Shiki output reset — aligns highlight layer with textarea overlay ── */
+.shiki {
+  margin: 0;
+  padding: 1rem; /* matches px-4 py-4 on textarea */
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 18px;
+  white-space: pre;
+  overflow: hidden;
+  tab-size: 2;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+.shiki code {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  counter-reset: none;
+}
+
+/* ── Shiki syntax highlight tokens (CSS variables theme) ── */
+:root {
+  --shiki-foreground: #fafafa;
+  --shiki-background: transparent;
+  --shiki-token-keyword: #06b6d4;
+  --shiki-token-string: #f59e0b;
+  --shiki-token-string-expression: #f59e0b;
+  --shiki-token-function: #10b981;
+  --shiki-token-comment: #4b5563;
+  --shiki-token-number: #ef4444;
+  --shiki-token-operator: #6b7280;
+  --shiki-token-punctuation: #6b7280;
+  --shiki-token-link: #06b6d4;
+  --shiki-token-parameter: #fafafa;
+  --shiki-token-constant: #ef4444;
+}

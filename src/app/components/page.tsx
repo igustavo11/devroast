@@ -1,27 +1,28 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
-  CardRoot,
   CardBadge,
-  CardTitle,
   CardDescription,
+  CardRoot,
+  CardTitle,
 } from '@/components/ui/card';
 import {
-  CodeBlockRoot,
-  CodeBlockHeader,
   CodeBlockBody,
+  CodeBlockHeader,
+  CodeBlockRoot,
 } from '@/components/ui/code-block';
 import { DiffLine } from '@/components/ui/diff-line';
-import { NavbarRoot, NavbarLogo, NavbarNav } from '@/components/ui/navbar';
+import { NavbarLogo, NavbarNav, NavbarRoot } from '@/components/ui/navbar';
 import { ScoreRing } from '@/components/ui/score-ring';
 import {
-  TableRowRoot,
-  TableRowRank,
-  TableRowScore,
   TableRowCode,
   TableRowLang,
+  TableRowRank,
+  TableRowRoot,
+  TableRowScore,
 } from '@/components/ui/table-row';
 import { Toggle } from '@/components/ui/toggle';
+import { CodeEditorPreview } from './code-editor-preview';
 
 function Section({
   title,
@@ -241,6 +242,11 @@ export default async function ComponentsPage() {
           <ScoreRing score={2.1} />
           <ScoreRing score={5.5} />
           <ScoreRing score={8.7} />
+        </Section>
+
+        {/* ── CodeEditor ── */}
+        <Section title="code_editor" stack>
+          <CodeEditorPreview />
         </Section>
       </main>
     </div>

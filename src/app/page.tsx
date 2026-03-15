@@ -2,33 +2,21 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Toggle } from '@/components/ui/toggle';
 import {
-  TableRowRoot,
-  TableRowRank,
-  TableRowScore,
+  CodeEditorBody,
+  CodeEditorHeader,
+  CodeEditorRoot,
+} from '@/components/ui/code-editor';
+import {
   TableRowCode,
   TableRowLang,
+  TableRowRank,
+  TableRowRoot,
+  TableRowScore,
 } from '@/components/ui/table-row';
+import { Toggle } from '@/components/ui/toggle';
 
-const PLACEHOLDER_CODE = `function calculateTotal(items) {
-  var total = 0;
-  for (var i = 0; i < items.length; i++) {
-    total = total + items[i].price;
-  }
-
-  if (total > 100) {
-    console.log("discount applied");
-    total = total * 0.9;
-  }
-
-  // TODO: handle tax calculation
-  // TODO: handle currency conversion
-
-  return total;
-}`;
-
-const LINE_COUNT = PLACEHOLDER_CODE.split('\n').length;
+const PLACEHOLDER_CODE = '';
 
 const LEADERBOARD_ROWS = [
   {
@@ -56,7 +44,7 @@ const LEADERBOARD_ROWS = [
 export default function Home() {
   const [code, setCode] = useState(PLACEHOLDER_CODE);
   const [roastMode, setRoastMode] = useState(true);
-  const lineCount = code.split('\n').length;
+  const [activeLang, setActiveLang] = useState('javascript');
 
   return (
     <main className="mx-auto max-w-[960px] px-10 pt-20 pb-15 flex flex-col items-center gap-8">
@@ -78,42 +66,15 @@ export default function Home() {
       </div>
 
       {/* Code Input Block */}
-      <div className="w-full max-w-[780px] border border-border-primary bg-bg-input flex flex-col h-[360px]">
-        {/* Window Header */}
-        <div className="flex items-center h-10 px-4 border-b border-border-primary shrink-0">
-          <div className="flex items-center gap-2">
-            <span className="block size-3 rounded-full bg-accent-red" />
-            <span className="block size-3 rounded-full bg-accent-amber" />
-            <span className="block size-3 rounded-full bg-accent-green" />
-          </div>
-        </div>
-
-        {/* Code Area */}
-        <div className="flex flex-1 min-h-0 overflow-hidden">
-          {/* Line Numbers */}
-          <div className="flex flex-col items-end px-3 py-4 bg-bg-surface border-r border-border-primary shrink-0 w-12 overflow-hidden select-none">
-            {Array.from(
-              { length: Math.max(lineCount, LINE_COUNT) },
-              (_, i) => i + 1,
-            ).map((n) => (
-              <span
-                key={n}
-                className="font-mono text-[12px] text-text-tertiary leading-[18px]"
-              >
-                {n}
-              </span>
-            ))}
-          </div>
-
-          {/* Textarea */}
-          <textarea
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-            spellCheck={false}
-            className="flex-1 bg-transparent font-mono text-[12px] text-text-primary leading-[18px] px-4 py-4 resize-none outline-none w-full overflow-hidden"
-          />
-        </div>
-      </div>
+      <CodeEditorRoot
+        value={code}
+        onChange={setCode}
+        onLanguageDetected={setActiveLang}
+        className="w-full max-w-[780px] border border-border-primary bg-bg-input flex flex-col h-[360px]"
+      >
+        <CodeEditorHeader />
+        <CodeEditorBody />
+      </CodeEditorRoot>
 
       {/* Actions Bar */}
       <div className="flex items-center justify-between w-full max-w-[780px]">
