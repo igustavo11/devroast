@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import { NavbarLogo, NavbarNav, NavbarRoot } from '@/components/ui/navbar';
+import { TRPCProvider } from '@/trpc/client';
 import './globals.css';
 
 const inter = Inter({
@@ -39,7 +40,7 @@ export default function RootLayout({
             </a>
           </NavbarNav>
         </NavbarRoot>
-        {children}
+        <TRPCProvider>{children}</TRPCProvider>
       </body>
     </html>
   );

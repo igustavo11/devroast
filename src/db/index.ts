@@ -88,6 +88,20 @@ type LeaderboardEntryRow = {
   summary: string;
 };
 
+export async function getMetricsSummary(): Promise<{
+  totalRoasts: number;
+  avgScore: number;
+}> {
+  const result = await db.execute(sql`
+    SELECT COUNT(*) as total, AVG(score) as avg_score FROM roasts
+  `);
+  const row = result[0] as { total: string; avg_score: string | null };
+  return {
+    totalRoasts: Number(row?.total || 0),
+    avgScore: row?.avg_score ? Math.round(Number(row.avg_score) * 10) / 10 : 0,
+  };
+}
+
 export async function getLeaderboard(params: {
   limit: number;
   offset: number;
