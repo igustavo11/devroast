@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
-import { tv, type VariantProps } from 'tailwind-variants';
 import { twMerge } from 'tailwind-merge';
+import { tv, type VariantProps } from 'tailwind-variants';
 
 export function TableRowRoot({
   className,

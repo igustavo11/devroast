@@ -1,6 +1,6 @@
 import type { ComponentProps } from 'react';
-import { twMerge } from 'tailwind-merge';
 import { codeToHtml } from 'shiki';
+import { twMerge } from 'tailwind-merge';
 
 export function CodeBlockRoot({
   className,

@@ -1,11 +1,5 @@
 import type { Metadata } from 'next';
-import {
-  TableRowCode,
-  TableRowLang,
-  TableRowRank,
-  TableRowRoot,
-  TableRowScore,
-} from '@/components/ui/table-row';
+import { CodeBlockBody, CodeBlockRoot } from '@/components/ui/code-block';
 
 export const metadata: Metadata = {
   title: 'Shame Leaderboard | devroast',
@@ -13,194 +7,137 @@ export const metadata: Metadata = {
     'The most roasted code on the internet. A ranking of the worst code submissions.',
 };
 
-// Static leaderboard data
 const LEADERBOARD_ENTRIES = [
   {
     rank: 1,
     score: 1.2,
-    codePreview:
-      'eval(prompt("enter code"))  document.write(response)  // trust the user lol',
+    code: 'eval(prompt("enter code"))\ndocument.write(response)\n// trust the user lol',
     lang: 'javascript',
-    author: 'anonymous',
-    submittedAt: '2 hours ago',
   },
   {
     rank: 2,
     score: 1.8,
-    codePreview:
-      'if (x == true) { return true; }  else if (x == false) { return false; }  else { return !false; }',
+    code: 'if (x == true) { return true; }\nelse if (x == false) { return false; }\nelse { return !false; }',
     lang: 'typescript',
-    author: 'anonymous',
-    submittedAt: '5 hours ago',
   },
   {
     rank: 3,
     score: 2.1,
-    codePreview: 'SELECT * FROM users WHERE 1=1  -- TODO: add authentication',
+    code: 'SELECT * FROM users WHERE 1=1\n-- TODO: add authentication',
     lang: 'sql',
-    author: 'anonymous',
-    submittedAt: '1 day ago',
   },
   {
     rank: 4,
     score: 2.5,
-    codePreview: 'while(true) { i = i + 1; }  // infinite loop for performance',
+    code: 'while(true) {\n  i = i + 1;\n}\n// infinite loop for performance',
     lang: 'python',
-    author: 'anonymous',
-    submittedAt: '2 days ago',
   },
   {
     rank: 5,
     score: 2.7,
-    codePreview:
-      'let var = "undefined"; let undefined = var;  // clever variable shadowing',
+    code: 'let var = "undefined";\nlet undefined = var;\n// clever variable shadowing',
     lang: 'javascript',
-    author: 'anonymous',
-    submittedAt: '3 days ago',
-  },
-  {
-    rank: 6,
-    score: 2.9,
-    codePreview:
-      'catch (Exception e) { }  // silent fail, no one needs to know about errors',
-    lang: 'java',
-    author: 'anonymous',
-    submittedAt: '4 days ago',
-  },
-  {
-    rank: 7,
-    score: 3.1,
-    codePreview:
-      'setInterval(() => console.log("memory leak detected"), 0)  // instant debugging',
-    lang: 'javascript',
-    author: 'anonymous',
-    submittedAt: '5 days ago',
-  },
-  {
-    rank: 8,
-    score: 3.3,
-    codePreview: 'DELETE FROM users;  -- oops, typo in WHERE clause',
-    lang: 'sql',
-    author: 'anonymous',
-    submittedAt: '6 days ago',
-  },
-  {
-    rank: 9,
-    score: 3.5,
-    codePreview:
-      'const data = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"  // passwords are for amateurs',
-    lang: 'javascript',
-    author: 'anonymous',
-    submittedAt: '1 week ago',
-  },
-  {
-    rank: 10,
-    score: 3.7,
-    codePreview:
-      'Array.from(Array(100000), (_, i) => i).map(x => x)  // quadratic time complexity ftw',
-    lang: 'typescript',
-    author: 'anonymous',
-    submittedAt: '1 week ago',
   },
 ];
 
-const STATS = [
-  { label: 'Total Roasted', value: '12,847' },
-  { label: 'Avg Score', value: '3.2/10' },
-  { label: 'Worst Code', value: '1.2/10' },
-];
+function scoreColor(score: number) {
+  if (score <= 2) return 'text-accent-red';
+  if (score <= 4) return 'text-accent-amber';
+  return 'text-accent-green';
+}
+
+function rankColor(rank: number) {
+  if (rank === 1) return 'text-accent-amber';
+  if (rank === 2) return 'text-text-secondary';
+  if (rank === 3) return 'text-accent-amber/60';
+  return 'text-text-tertiary';
+}
+
+type EntryHeaderProps = {
+  rank: number;
+  score: number;
+  lang: string;
+  lines: number;
+};
+
+function EntryHeader({ rank, score, lang, lines }: EntryHeaderProps) {
+  return (
+    <div className="flex h-12 items-center justify-between border-b border-border-primary px-5">
+      {/* Left: macOS dots + rank + score */}
+      <div className="flex items-center gap-4">
+        {/* macOS dots */}
+        <div className="flex items-center gap-[6px]">
+          <span className="size-[10px] rounded-full bg-accent-red" />
+          <span className="size-[10px] rounded-full bg-accent-amber" />
+          <span className="size-[10px] rounded-full bg-accent-green" />
+        </div>
+
+        {/* Rank */}
+        <div className="flex items-center gap-1 font-mono">
+          <span className="text-[13px] text-text-tertiary">#</span>
+          <span className={`text-[13px] font-bold ${rankColor(rank)}`}>
+            {rank}
+          </span>
+        </div>
+
+        {/* Score */}
+        <div className="flex items-center gap-1.5 font-mono">
+          <span className="text-[12px] text-text-tertiary">score:</span>
+          <span className={`text-[13px] font-bold ${scoreColor(score)}`}>
+            {score.toFixed(1)}
+          </span>
+        </div>
+      </div>
+
+      {/* Right: lang + lines */}
+      <div className="flex items-center gap-3 font-mono">
+        <span className="text-[12px] text-text-secondary">{lang}</span>
+        <span className="text-[12px] text-text-tertiary">{lines} lines</span>
+      </div>
+    </div>
+  );
+}
 
 export default function LeaderboardPage() {
   return (
     <div className="min-h-screen bg-bg-page flex flex-col">
-      {/* Main Content */}
       <main className="flex-1 flex flex-col px-20 py-10 gap-10">
-        {/* Hero Section */}
-        <div className="w-full">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="font-mono text-[20px] font-bold text-accent-green leading-none">
+        {/* Hero */}
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-3">
+            <span className="font-mono text-[32px] font-bold text-accent-green leading-none">
               &gt;
             </span>
-            <h1 className="font-mono text-[32px] font-bold text-text-primary leading-none">
+            <h1 className="font-mono text-[28px] font-bold text-text-primary leading-none">
               shame_leaderboard
             </h1>
           </div>
-          <p className="font-mono text-[14px] text-text-secondary mb-6">
+          <p className="font-mono text-[14px] text-text-secondary">
             {'// the most roasted code on the internet'}
           </p>
-
-          {/* Stats Row */}
-          <div className="flex items-center gap-8">
-            {STATS.map((stat, index) => (
-              <div key={stat.label} className="flex items-center gap-4">
-                <div className="flex flex-col gap-0.5">
-                  <span className="font-mono text-[12px] text-text-tertiary">
-                    {stat.label}
-                  </span>
-                  <span className="font-mono text-[18px] font-bold text-text-primary">
-                    {stat.value}
-                  </span>
-                </div>
-                {index < STATS.length - 1 && (
-                  <div className="w-px h-12 bg-border-primary" />
-                )}
-              </div>
-            ))}
+          <div className="flex items-center gap-2 font-mono text-[12px] text-text-tertiary">
+            <span>2,847 submissions</span>
+            <span>·</span>
+            <span>avg score: 4.2/10</span>
           </div>
         </div>
 
-        {/* Leaderboard Section */}
-        <div className="w-full flex flex-col gap-6">
-          {/* Table */}
-          <div className="w-full border border-border-primary">
-            {/* Table Header */}
-            <div className="flex items-center h-10 px-5 bg-bg-elevated border-b border-border-primary font-mono">
-              <div className="w-10 shrink-0">
-                <span className="text-[12px] font-medium text-text-tertiary">
-                  #
-                </span>
-              </div>
-              <div className="w-[60px] shrink-0">
-                <span className="text-[12px] font-medium text-text-tertiary">
-                  score
-                </span>
-              </div>
-              <div className="flex-1">
-                <span className="text-[12px] font-medium text-text-tertiary">
-                  code
-                </span>
-              </div>
-              <div className="w-[100px] shrink-0 text-right">
-                <span className="text-[12px] font-medium text-text-tertiary">
-                  lang
-                </span>
-              </div>
-            </div>
-
-            {/* Rows */}
-            {LEADERBOARD_ENTRIES.map((entry, i) => (
-              <TableRowRoot
-                key={entry.rank}
-                className={
-                  i === LEADERBOARD_ENTRIES.length - 1
-                    ? 'border-b-0'
-                    : undefined
-                }
-              >
-                <TableRowRank>{entry.rank}</TableRowRank>
-                <TableRowScore value={entry.score} />
-                <TableRowCode>{entry.codePreview}</TableRowCode>
-                <TableRowLang>{entry.lang}</TableRowLang>
-              </TableRowRoot>
-            ))}
-          </div>
-
-          {/* Footer */}
-          <div className="flex justify-center py-4">
-            <span className="font-mono text-[12px] text-text-tertiary">
-              showing all {LEADERBOARD_ENTRIES.length} submissions
-            </span>
-          </div>
+        {/* Entries */}
+        <div className="flex flex-col gap-5">
+          {LEADERBOARD_ENTRIES.map((entry) => {
+            const lines = entry.code.split('\n').length;
+            return (
+              <CodeBlockRoot key={entry.rank}>
+                <EntryHeader
+                  rank={entry.rank}
+                  score={entry.score}
+                  lang={entry.lang}
+                  lines={lines}
+                />
+                <CodeBlockBody code={entry.code} lang={entry.lang} />
+              </CodeBlockRoot>
+            );
+          })}
         </div>
       </main>
     </div>

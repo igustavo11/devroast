@@ -1,5 +1,5 @@
 import type { ComponentProps } from 'react';
-import { tv, type VariantProps } from 'tailwind-variants';
+import { tv } from 'tailwind-variants';
 import { Badge } from './badge';
 
 const cardRoot = tv({

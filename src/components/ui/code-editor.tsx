@@ -17,6 +17,10 @@ import { ensureLanguageLoaded, getHighlighter } from '@/lib/highlighter';
 import { LANGUAGES } from '@/lib/languages';
 import { LanguageSelect } from './language-select';
 
+// ─── Constants ───────────────────────────────────────────────────────────────
+
+export const MAX_LINES = 50;
+
 // ─── Context ────────────────────────────────────────────────────────────────
 
 type CodeEditorContextValue = {
@@ -30,6 +34,7 @@ type CodeEditorContextValue = {
   lineCount: number;
   scrollTop: number;
   onScroll: (e: UIEvent<HTMLTextAreaElement>) => void;
+  exceededLimit: boolean;
 };
 
 const CodeEditorContext = createContext<CodeEditorContextValue | null>(null);
@@ -69,6 +74,7 @@ export function CodeEditorRoot({
 
   const activeLang = selectedLanguage ?? detectedLanguage;
   const lineCount = value.split('\n').length;
+  const exceededLimit = lineCount > MAX_LINES;
 
   // Initialize Shiki singleton
   useEffect(() => {
@@ -161,6 +167,7 @@ export function CodeEditorRoot({
         lineCount,
         scrollTop,
         onScroll,
+        exceededLimit,
       }}
     >
       <div className={className} {...props}>
@@ -213,8 +220,15 @@ export function CodeEditorHeader({
 type CodeEditorBodyProps = ComponentProps<'div'>;
 
 export function CodeEditorBody({ className, ...props }: CodeEditorBodyProps) {
-  const { value, onChange, highlightedHtml, lineCount, scrollTop, onScroll } =
-    useCodeEditor();
+  const {
+    value,
+    onChange,
+    highlightedHtml,
+    lineCount,
+    scrollTop,
+    onScroll,
+    exceededLimit,
+  } = useCodeEditor();
   const gutterRef = useRef<HTMLDivElement>(null);
   const highlightRef = useRef<HTMLDivElement>(null);
 
@@ -303,6 +317,13 @@ export function CodeEditorBody({ className, ...props }: CodeEditorBodyProps) {
             WebkitTextFillColor: 'transparent',
           }}
         />
+
+        {/* Limit indicator */}
+        {exceededLimit && (
+          <div className="absolute bottom-2 right-4 px-2 py-1 bg-accent-red/20 border border-accent-red rounded text-[11px] text-accent-red font-mono pointer-events-none">
+            {`${lineCount - MAX_LINES} lines over limit`}
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
-import { NavbarRoot, NavbarLogo, NavbarNav } from '@/components/ui/navbar';
+import { NavbarLogo, NavbarNav, NavbarRoot } from '@/components/ui/navbar';
 import './globals.css';
 
 const inter = Inter({

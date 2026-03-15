@@ -1,5 +1,4 @@
 import { pgTable, real, text, timestamp, uuid } from 'drizzle-orm/pg-core';
-import { languageEnum, roastModeEnum } from '../enums';
 import { submissions } from './submissions';
 
 export const roasts = pgTable('roasts', {

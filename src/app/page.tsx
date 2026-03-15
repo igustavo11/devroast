@@ -6,6 +6,7 @@ import {
   CodeEditorBody,
   CodeEditorHeader,
   CodeEditorRoot,
+  MAX_LINES,
 } from '@/components/ui/code-editor';
 import {
   TableRowCode,
@@ -44,7 +45,10 @@ const LEADERBOARD_ROWS = [
 export default function Home() {
   const [code, setCode] = useState(PLACEHOLDER_CODE);
   const [roastMode, setRoastMode] = useState(true);
-  const [activeLang, setActiveLang] = useState('javascript');
+  const [_activeLang, setActiveLang] = useState('javascript');
+
+  const lineCount = code.split('\n').length;
+  const exceededLimit = lineCount > MAX_LINES;
 
   return (
     <main className="mx-auto max-w-[960px] px-10 pt-20 pb-15 flex flex-col items-center gap-8">
@@ -66,31 +70,35 @@ export default function Home() {
       </div>
 
       {/* Code Input Block */}
-      <CodeEditorRoot
-        value={code}
-        onChange={setCode}
-        onLanguageDetected={setActiveLang}
-        className="w-full max-w-[780px] border border-border-primary bg-bg-input flex flex-col h-[360px]"
-      >
-        <CodeEditorHeader />
-        <CodeEditorBody />
-      </CodeEditorRoot>
+      <div className="w-full max-w-[780px] flex flex-col gap-4">
+        <CodeEditorRoot
+          value={code}
+          onChange={setCode}
+          onLanguageDetected={setActiveLang}
+          className="border border-border-primary bg-bg-input flex flex-col h-[360px]"
+        >
+          <CodeEditorHeader />
+          <CodeEditorBody />
+        </CodeEditorRoot>
 
-      {/* Actions Bar */}
-      <div className="flex items-center justify-between w-full max-w-[780px]">
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2.5">
-            <Toggle checked={roastMode} onCheckedChange={setRoastMode} />
-            <span className="font-mono text-[13px] text-accent-green">
-              roast mode
+        {/* Actions Bar */}
+        <div className="flex items-center justify-between w-full">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2.5">
+              <Toggle checked={roastMode} onCheckedChange={setRoastMode} />
+              <span className="font-mono text-[13px] text-accent-green">
+                roast mode
+              </span>
+            </div>
+            <span className="font-mono text-[12px] text-text-tertiary">
+              {'// maximum sarcasm enabled'}
             </span>
           </div>
-          <span className="font-mono text-[12px] text-text-tertiary">
-            {'// maximum sarcasm enabled'}
-          </span>
-        </div>
 
-        <Button size="md">$ roast_my_code</Button>
+          <Button size="md" disabled={exceededLimit}>
+            $ roast_my_code
+          </Button>
+        </div>
       </div>
 
       {/* Footer Hint */}
