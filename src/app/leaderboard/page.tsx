@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { NavbarLogo, NavbarNav, NavbarRoot } from '@/components/ui/navbar';
 import {
   TableRowCode,
   TableRowLang,
@@ -114,16 +113,6 @@ const STATS = [
 export default function LeaderboardPage() {
   return (
     <div className="min-h-screen bg-bg-page flex flex-col">
-      {/* Navbar */}
-      <NavbarRoot>
-        <NavbarLogo>devroast</NavbarLogo>
-        <NavbarNav>
-          <span className="font-mono text-[13px] text-text-secondary">
-            leaderboard
-          </span>
-        </NavbarNav>
-      </NavbarRoot>
-
       {/* Main Content */}
       <main className="flex-1 flex flex-col px-20 py-10 gap-10">
         {/* Hero Section */}
