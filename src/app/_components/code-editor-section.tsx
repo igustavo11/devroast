@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
@@ -9,16 +10,33 @@ import {
   MAX_LINES,
 } from '@/components/ui/code-editor';
 import { Toggle } from '@/components/ui/toggle';
+import { trpc } from '@/trpc/client';
 
 const PLACEHOLDER_CODE = '';
 
 export function CodeEditorSection() {
+  const router = useRouter();
   const [code, setCode] = useState(PLACEHOLDER_CODE);
   const [roastMode, setRoastMode] = useState(true);
-  const [_activeLang, setActiveLang] = useState('javascript');
+  const [activeLang, setActiveLang] = useState('javascript');
 
   const lineCount = code.split('\n').length;
   const exceededLimit = lineCount > MAX_LINES;
+
+  const submitRoast = trpc.roast.submit.useMutation({
+    onSuccess(data) {
+      router.push(`/roast/${data.submissionId}`);
+    },
+  });
+
+  function handleRoast() {
+    if (!code.trim() || exceededLimit || submitRoast.isPending) return;
+    submitRoast.mutate({
+      code,
+      language: activeLang,
+      roastMode: roastMode ? 'roast' : 'brutal',
+    });
+  }
 
   return (
     <div className="w-full max-w-[780px] flex flex-col gap-4">
@@ -46,10 +64,21 @@ export function CodeEditorSection() {
           </span>
         </div>
 
-        <Button size="md" disabled={exceededLimit}>
-          $ roast_my_code
+        <Button
+          size="md"
+          disabled={exceededLimit || submitRoast.isPending || !code.trim()}
+          onClick={handleRoast}
+        >
+          {submitRoast.isPending ? '$ roasting...' : '$ roast_my_code'}
         </Button>
       </div>
+
+      {submitRoast.isError && (
+        <p className="font-mono text-[12px] text-accent-red">
+          {'// error: '}
+          {submitRoast.error.message}
+        </p>
+      )}
     </div>
   );
 }

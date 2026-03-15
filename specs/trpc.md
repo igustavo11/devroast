@@ -1,7 +1,7 @@
 # Spec: tRPC como camada de API
 
 **Feature:** Substituir as API Routes manuais por tRPC com suporte a Server Components/SSR  
-**Status:** Em especificação  
+**Status:** Implementada  
 **Data:** 2026-03-15
 
 ---
